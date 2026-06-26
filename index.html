@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beyond the Stars</title>
+    <style>
+        /* Reset Premium */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body, html {
+            height: 100%;
+            font-family: 'Inter', sans-serif;
+            background-color: #02040a; /* Preto absoluto */
+            color: #f8fafc;
+            overflow-x: hidden;
+        }
+
+        /* Fundo Cósmico Fixo com Estrelas */
+        .cosmic-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: radial-gradient(circle at 30% 40%, #081229 0%, #02040a 70%);
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .stars {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(white, rgba(255,255,255,.2) 1px, transparent 35px),
+                radial-gradient(rgba(56, 189, 248, 0.3), rgba(0,0,0,0) 2px, transparent 40px);
+            background-size: 300px 300px, 250px 250px;
+            opacity: 0.4;
+        }
+
+        /* Layout Split Screen (Duas Colunas) - Corrige qualquer bug de colisão */
+        .main-layout {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            position: relative;
+            z-index: 2;
+        }
+
+        @media (min-width: 992px) {
+            .main-layout {
+                flex-direction: row;
+            }
+        }
+
+        /* COLUNA ESQUERDA: Flor Fixa que nunca sai do lugar */
+        .left-column {
+            width: 100%;
+            height: 40vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        @media (min-width: 992px) {
+            .left-column {
+                width: 45%;
+                height: 100vh;
+                position: sticky;
+                top: 0;
+            }
+        }
+
+        /* Escultura da Flor Azul com Brilho Neon Avançado */
+        .flower-sculpture {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            filter: drop-shadow(0 0 40px rgba(37, 99, 235, 0.65)) drop-shadow(0 0 90px rgba(56, 189, 248, 0.35));
+            animation: etherealFloat 5s ease-in-out infinite;
+        }
+
+        @keyframes etherealFloat {
+            0%, 100% { transform: translateY(0) scale(1) rotate(0deg); }
+            50% { transform: translateY(-12px) scale(1.03) rotate(3deg); }
+        }
+
+        .petal {
+            position: absolute;
+            background: linear-gradient(135deg, #38bdf8 0%, #1d4ed8 60%, #0f172a 100%);
+            border-radius: 50% 50% 10% 50%;
+            transform-origin: bottom right;
+            box-shadow: inset 0 3px 8px rgba(255, 255, 255, 0.4), 0 6px 20px rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(56, 189, 248, 0.2);
+        }
+
+        .p1 { width: 60px; height: 60px; top: 10px; left: 40px; transform: rotate(0deg); }
+        .p2 { width: 60px; height: 60px; top: 20px; left: 60px; transform: rotate(60deg); }
+        .p3 { width: 60px; height: 60px; top: 40px; left: 60px; transform: rotate(120deg); }
+        .p4 { width: 60px; height: 60px; top: 50px; left: 40px; transform: rotate(180deg); }
+        .p5 { width: 60px; height: 60px; top: 40px; left: 20px; transform: rotate(240deg); }
+        .p6 { width: 60px; height: 60px; top: 20px; left: 20px; transform: rotate(300deg); }
+
+        .inner-petal {
+            position: absolute;
+            background: linear-gradient(135deg, #f0f9ff 0%, #0284c7 75%, #0369a1 100%);
+            border-radius: 50% 50% 10% 50%;
+            transform-origin: bottom right;
+            box-shadow: inset 0 2px 5px rgba(255,255,255,0.5), 0 4px 10px rgba(0,0,0,0.5);
+        }
+        .ip1 { width: 42px; height: 42px; top: 24px; left: 49px; transform: rotate(30deg); }
+        .ip2 { width: 42px; height: 42px; top: 34px; left: 56px; transform: rotate(90deg); }
+        .ip3 { width: 42px; height: 42px; top: 46px; left: 49px; transform: rotate(150deg); }
+        .ip4 { width: 42px; height: 42px; top: 46px; left: 37px; transform: rotate(210deg); }
+        .ip5 { width: 42px; height: 42px; top: 34px; left: 30px; transform: rotate(270deg); }
+        .ip6 { width: 42px; height: 42px; top: 24px; left: 37px; transform: rotate(330deg); }
+
+        .flower-core {
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            background: radial-gradient(circle, #ffffff 0%, #fef08a 40%, #ca8a04 100%);
+            border-radius: 50%;
+            top: 57px;
+            left: 57px;
+            z-index: 10;
+            box-shadow: 0 0 25px #facc15, inset 0 2px 4px rgba(255,255,255,0.8);
+        }
+
+        /* COLUNA DIREITA: A Jornada de Texto Longo */
+        .right-column {
+            width: 100%;
+            padding: 40px 25px;
+        }
+
+        @media (min-width: 992px) {
+            .right-column {
+                width: 55%;
+                padding: 100px 60px 100px 20px;
+            }
+        }
+
+        .story-content {
+            max-width: 650px;
+        }
+
+        /* Parágrafos Poéticos */
+        .poetic-text {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.15rem;
+            line-height: 1.9;
+            color: #cbd5e1;
+            margin-bottom: 40px;
+            text-align: left;
+            font-weight: 300;
+        }
+
+        /* Frases de Destaque Neon */
+        .highlight-phrase {
+            display: block;
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 2.3rem;
+            font-weight: 700;
+            font-style: italic;
+            background: linear-gradient(135deg, #f0f9ff 0%, #38bdf8 50%, #2563eb 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 20px 0 6px 0;
+            filter: drop-shadow(0 2px 10px rgba(56, 189, 248, 0.35));
+        }
+
+        /* Tradução Discreta */
+        .translation {
+            display: block;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.8rem;
+            font-style: normal;
+            color: #475569;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 25px;
+            font-weight: 600;
+        }
+
+        /* Linha Divisória de Atos */
+        .divider {
+            width: 40px;
+            height: 2px;
+            background: linear-gradient(to right, #38bdf8, transparent);
+            margin: 40px 0;
+        }
+
+        /* Rodapé Fino */
+        .custom-footer {
+            margin-top: 80px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            font-size: 0.8rem;
+            color: #475569;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:ital,wght@1,700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="cosmic-bg">
+        <div class="stars"></div>
+    </div>
+
+    <div class="main-layout">
+        
+        <div class="left-column">
+            <div class="flower-sculpture">
+                <div class="petal p1"></div>
+                <div class="petal p2"></div>
+                <div class="petal p3"></div>
+                <div class="petal p4"></div>
+                <div class="petal p5"></div>
+                <div class="petal p6"></div>
+                
+                <div class="inner-petal ip1"></div>
+                <div class="inner-petal ip2"></div>
+                <div class="inner-petal ip3"></div>
+                <div class="inner-petal ip4"></div>
+                <div class="inner-petal ip5"></div>
+                <div class="inner-petal ip6"></div>
+                
+                <div class="flower-core"></div>
+            </div>
+        </div>
+
+        <div class="right-column">
+            <div class="story-content">
+                
+                <div class="poetic-text">
+                    Olho para o tamanho deste mundo e juro que ainda não sei como tive a sorte de te encontrar no meio de tanta gente. É uma loucura como tudo mudou desde que entraste na minha vida. O meu mundo ganhou um brilho completamente diferente e tu deitaste abaixo todas as minhas defesas sem sequer tentares.
+                    
+                    <span class="highlight-phrase">Sweetheart, you stir my soul!</span>
+                    <span class="translation">Amor, você mexe com minha alma!</span>
+                    
+                    Não dá para explicar o que sinto, nem sequer faz sentido tentar encontrar palavras. Foi a cena mais inevitável e certa que alguma vez me aconteceu. Não foi só uma paixoneta passageira, foi algo muito mais forte.
+                    
+                    <span class="highlight-phrase">I'm madly in love with you.</span>
+                    <span class="translation">Estou loucamente apaixonado por você.</span>
+                </div>
+
+                <div class="divider"></div>
+
+                <div class="poetic-text">
+                    Há dias em que tudo parece uma confusão e o cansaço aperta, mas basta um segundo contigo, uma mensagem tua ou ouvir a tua voz para que todo esse barulho desapareça num instante. Tu trazes-me uma paz absurda que eu não consigo encontrar em mais lado nenhum.
+                    
+                    <span class="highlight-phrase">You take my breath away.</span>
+                    <span class="translation">Você tira meu fôlego.</span>
+                    
+                    Rir contigo das coisas mais parvas, planear o nosso futuro e enfrentar qualquer desafio de mãos dadas... é isso que faz tudo valer a pena. 
+                    
+                    <span class="highlight-phrase">It's awesome to spend my life with you!</span>
+                    <span class="translation">É maravilhoso passar minha vida ao seu lado.</span>
+                    
+                    Olho para tudo o que já vivemos e para todas as memórias que criámos juntos, e percebo que não quero outro caminho. Todos os meus planos começam e acabam ao teu lado.
+                </div>
+
+                <div class="divider"></div>
+
+                <div class="poetic-text">
+                    Dizem que o tempo cura tudo e que as coisas acabam por passar, mas quando estou contigo, sinto que o tempo para e fica do nosso lado. Às vezes as pessoas falam de "para sempre" como se fosse uma promessa assustadora ou uma distância impossível de alcançar, mas elas claramente nunca viram o teu sorriso.
+                    
+                    <span class="highlight-phrase">With you, forever won't be too long.</span>
+                    <span class="translation">Com você a eternidade não levará muito tempo.</span>
+                    
+                    Não és apenas uma fase bonita ou um capítulo na minha história. És a pessoa com quem quero partilhar cada conquista, o meu porto seguro e a minha maior certeza neste mundo.
+                    
+                    <span class="highlight-phrase">You are the love of my life!</span>
+                    <span class="translation">Você é o amor da minha vida!</span>
+                </div>
+
+                <div class="custom-footer">
+                    I truly, madly, deeply love you • 2026
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
